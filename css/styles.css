@@ -1,11 +1,17 @@
 /* Selector de etiquetas (para todas las etiquetas) */
 
+/* Pseudoclases */
+p:hover {
+    background-color: black;
+    color: white;
+}
+
 
 /* ====================
     Encabezado
     ================= */
 header {
-    border: 2px solid green;
+    border: 2px solid rgb(174, 118, 97);
 }
 
 /* Selector de clase (para elementos repetidos)-> .nombreClase */
@@ -25,12 +31,26 @@ main {
 
 #ciudades-container {
     display: flex;
+    flex-direction: column;
 }
 
 .ciudades {
     text-align: center;
     border: 2px solid green;
-    flex: 1;
+    height: 465px;
+}
+
+.ciudades-texto {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    /* background-color: black; */
+    /* opacity: 0.3; */
+    height: 100%;
+}
+
+.ciudades-texto h2 {
+    margin-top: 0;
+    padding-top: 35px;
 }
 
 /* Selector de id (para elementos unicos) -> #nombreId */
@@ -40,17 +60,21 @@ main {
 }
 
 #chile {
-    background-color: tomato;
+    /* background-color: tomato; */
     font-family: 'Courier New', Courier, monospace;
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.klassikinfo.de%2Fwp-content%2Fuploads%2F2017%2F08%2Fsantiago-de-chile-segundoenfoque.jpg&f=1&nofb=1&ipt=7c1eaad6aa8124ab7eca46194cdad29ce31b3e95d21f0427ab93af1282e04db6");
+    background-size: contain;
+    background-position: bottom;
+    background-repeat: unset;
 }
 
 #compostela {
-    background-color: cornflowerblue;
+    /* background-color: cornflowerblue; */
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 #estero {
-    background-color: khaki;
+    /* background-color: khaki; */
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
