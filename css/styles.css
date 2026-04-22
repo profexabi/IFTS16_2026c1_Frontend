@@ -1,10 +1,11 @@
 /* Selector de etiquetas (para todas las etiquetas) */
 
-/* Pseudoclases */
+/* Pseudoclases 
 p:hover {
     background-color: black;
     color: white;
 }
+    */
 
 
 /* ====================
@@ -93,3 +94,95 @@ footer {
     border: 2px solid blue;
 }
 
+
+/* =======================
+     Muestra pseudoclases 
+==========================
+
+Las pseudoclases son palabras clave que se añaden a los selectores para especificar un estado especial de un elemento.
+Permiten aplicar estilos a elementos bajo ciertas condiciones o estados, como itneractuar con un enlace, pasar el mouse, hacer click o seleccionar el primer o ultimo hijo de un contenedor.
+
+Mejoran la interactividad y la capacidad de respuesta de los elementos.
+*/
+/* unvisited link */
+a:link {
+    color: red;
+  }
+  
+  /* visited link */
+  a:visited {
+    color: green;
+  }
+  
+  /* mouse over link */
+  a:hover {
+    color: hotpink;
+  }
+  
+  /* selected link */
+  a:active {
+    color: blue;
+  }
+  
+  
+  #test {
+      border: 2px solid transparent;
+      padding: 5px;
+      border-radius: 5px;
+      width: 400px;
+  }
+  
+  
+  /* Hover -> Pasar el mouse arriba */
+  #test:hover {
+      cursor: pointer;
+      color: white;
+      background-color: black;
+      border: 2px solid #00ff41;
+  }
+  
+  /* Active -> La accion de hacer clik */
+  #test:active {
+      background-color: #00ff41;
+      color: black;
+  }
+
+
+
+/* =======================
+     Muestra combinador 
+==========================
+
+Los combinadores son caracteres que permiten seleccionar elementos en funcion de su relacion con otros elementos en el arbol del DOM.
+
+Definen la forma en que se conectan los selectores y como se relacionan los elementos entre si
+
+Combinador descendiente " "
+  Selecciona todos los elementos que son descendientes de un elemento padre sin importar que tan profundo esten en el arbol del DOM
+
+
+Combinador de hijo directo ">"
+  Selecciona solo los elementos que son HIJOS INMEDIATOS de un elemento padre
+
+Combinador de hermano adyacente "+"
+  Selecciona un elemento que es hermano inmediato de otro elemento, es decir, el que aparece justo despues de el en el DOM
+
+Combinador de hermano general "~"
+  Selecciona todos los elementos que son HERMANOS de nu elemento, no necesariamente inmediatos. Simplemente deben compartir el mismo padre
+*/
+
+.section-combinadores{
+    border: 2px solid red;
+}
+
+.section-div {
+    border: 2px solid green;
+}
+/*
+div > p {
+    color: red;
+}*/
+
+h1 ~ p {
+    color: green;
+}
