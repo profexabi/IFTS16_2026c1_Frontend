@@ -1,3 +1,51 @@
+/*==========================
+    Variables en CSS
+============================
+
+Salto de calidad y profesionalidad en nuestro codigo.
+Permite nombrar y reutilizar estilos, colores, tamaños, etc sin tener que escribirlos una y otra vez
+Permite estandarizar estilos generales para usar una paleta de colores propia
+*/
+
+/* Paleta principal de colores de nuestra pagina */
+:root {
+    --fondo-claro: #1d2a35;
+    --fondo-oscuro: #111b26;
+    --verde-primario: #04aa6d;
+    --verde-background: #193d3d;
+    --gris-background: #38444d;
+    --fuente-claro: #dddddd;
+    --fuente-principal: "Segoe UI",-apple-system,Arial,Verdana,sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: var(--fondo-claro);
+    color:var(--fuente-claro);
+    font-family: var(--fuente-principal);
+}
+
+h1, h2, h3 {
+    color: var(--verde-primario);
+}
+
+nav {
+    background-color: var(--fondo-oscuro);
+}
+
+/* Sobreescribimos todos los links estilados por defecto */
+a {
+    text-decoration: none;
+    color: var(--verde-primario);
+}
+
+/* Sobreescribimos los estilos generales de las listas */
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+
 /* Selector de etiquetas (para todas las etiquetas) */
 
 /* Pseudoclases 
@@ -5,15 +53,58 @@ p:hover {
     background-color: black;
     color: white;
 }
-    */
+*/
 
 
 /* ====================
     Encabezado
     ================= */
 header {
-    border: 2px solid rgb(174, 118, 97);
+    /* border: 2px solid rgb(174, 118, 97); */
+    /* border: 1px solid; */
+    display: flex;
+    align-items: center;
+    background-color: var(--fondo-oscuro);
 }
+
+header > div, header ul {
+    display: flex;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+header ul {
+    justify-content: space-around;
+    margin: 0;
+}
+
+header > div {
+    width: 40%;
+    justify-content: space-evenly;
+}
+
+header > nav {
+    width: 60%;
+    background-color: var(--fondo-oscuro);
+}
+
+header ul li {
+    padding: 15px;
+    border: 2px solid transparent;
+}
+
+header li:hover {
+    background-color: var(--verde-primario);
+    color: var(--fuente-claro);
+    border: 2px solid var(--verde-primario);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+header li:active {
+    background-color: var(--verde-background);
+}
+
 
 /* Selector de clase (para elementos repetidos)-> .nombreClase */
 .logo {
@@ -26,7 +117,7 @@ header {
     Contenido ppal
     ================= */
 main {
-    border: 2px solid red;
+    /* border: 2px solid red; */
 }
 
 
@@ -57,7 +148,7 @@ main {
 /* Selector de id (para elementos unicos) -> #nombreId */
 #titulo {
     font-family: monospace;
-    color: blueviolet;
+    /* color: blueviolet; */
 }
 
 #chile {
@@ -91,7 +182,7 @@ main {
     Pie pagina
     ================= */
 footer {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
 }
 
 
@@ -106,22 +197,22 @@ Mejoran la interactividad y la capacidad de respuesta de los elementos.
 */
 /* unvisited link */
 a:link {
-    color: red;
+    /* color: red; */
   }
   
   /* visited link */
   a:visited {
-    color: green;
+    /* color: green; */
   }
   
   /* mouse over link */
   a:hover {
-    color: hotpink;
+    /* color: hotpink; */
   }
   
   /* selected link */
   a:active {
-    color: blue;
+    /* color: blue; */
   }
   
   
@@ -172,7 +263,7 @@ Combinador de hermano general "~"
 */
 
 .section-combinadores{
-    border: 2px solid red;
+    /* border: 2px solid red; */
 }
 
 .section-div {
