@@ -8,17 +8,168 @@
 
 - *13/05 / JavaScript V*
 
-- 20/05 / JavaScript y VI y VII 1a parte
+- *20/05 / JavaScript y VI y Objetos globales + APIs Web*
 
-- 27/05 / JavaScript VII 2a parte
+- 27/05 / Eventos JS VI y JavaScript VII 
 
-- 03/06 / JavaScript VIII 1a parte
+- 03/06 / JavaScript VIII
 
-- 10/06 / JavaScript VIII 2a parte
+- 10/06 / A definir
 
-- A definir 17, 24
+- A definir 17, 
 
-- A definir 01/07 presentacion proyectos front?
+- Presentacion TPO1 / 24 junio
+
+- Presentacion TPO2 1 julio
+
+---
+
+## JavaScript VI / Manipulacion del DOM en JavaScript y eventos
+
+### Que es el [DOM](https://www.w3schools.com/js/js_htmldom.asp)?
+El DOM (Document Object Model) o  Modelo de Objetos del documento es una interfaz de programacion que representa un documento HTML como una estructura jerarquica de objetos, conocida como arbol DOM.
+Esta estructura permite a los programas acceder, modificar, añadir o eliminar elementos, contenido, estilos y atributos del documento de forma dinamica.
+
+Cada elemento HTML se convieret en un nodo dentro de ese arbol y todos los elementos estan relacionados entre si mediante padres, hijos y hermanos creando uan representacion en memoria de=l documento que el navegador puede manipular.
+Este modelo fue estandarizado por W3C para resolver la incompatibilidad de navegadores a finales de los 90 y hoy es parte fundamental del estandar HTML5. Hoy es una API independiente de=l lenguaje que se usa en multiples lenguajes de programacion.
+
+**Em resumen, el DOM es la base que permite a JavaScript interactuar con el contenido de una pagina web, transformando el codigo HTML en una estructura de objetos manipulable.**
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mi página</title>
+    </head>
+    <body>
+        <h1>Bienvenidos</h1>
+        <p>Este es un párrafo</p>
+    </body>
+</html>
+```
+
+Este HTML seria representado en el DOM como una estructura en forma de arbol. Donde `document` es el objeto que representa toda la pagina web.
+
+#### Diagrama de arbol del DOM
+- document
+    - html
+        - head
+            - title
+        - body
+            - h1
+            - p
+
+---
+
+### Objetos globales y APIs Web
+- JavaScript es un lenguaje
+- Web APIs son las herramientas del navegador
+- Objetos globales son el lugar donde el entorno de ejecucion expone estas herramientas
+
+```js
+// La ventanita flotante del alert
+alert()
+```
+
+- Es una Web API en el navegador
+- Expuesta como una funcion global
+- Accesible desde el objeto global `window`
+- Utilizada por JavaSCript
+- Pero NO es parte de ECMAScript! No forma parte del lenguaje
+
+**Las Web APIs no forman parte del lenguaje JavaScript, son funcionalidades que provee el navegador**. El navegador hace algo importante: expone las Web APIs dentro del objeto global
+
+```js
+// El navegador inyecta esta funcion a traves de objeto global window
+window.alert();     // API de ventanas flotantes
+
+// En la practica, podemos omitir 'window'
+
+window.setTimeout;      // API de temporizadores
+window.fetch;           // API de peticiones HTTP
+window.localStorage;    // API de almacenamiento
+window.navigator;       // API del navegador
+window.document;        // API del DOM
+```
+
+### Que es una API?
+API significa **Application Programming Interface** o Interfaz de Programacion de Aplicaciones
+
+> Una API es un conjunto de funciones y herramientas que podemos usar para interactuar con algo, como el navegador, el servidor o una libreria
+
+En el contexto de ejecion del navegador, una Web API es una funcion o conjunto de funciones que el navegador nos proporciona para que las usemos con JavaScript.
+
+---
+
+### Tipos de Web APIs mas comunes
+#### 1. APIs del DOM
+Nos permiten acceder y modificar el HTML y CSS de la pagina
+- `document.getElementById()`
+- `element.addEventListener()`
+
+Uso: Manipulacion de elementos, eventos, clases, estilos, etc
+
+---
+
+#### 2. APIs de Red
+Nos permiten comunicarnos con servidores o cargar recursos
+- `fetch()` -> nueva
+- `XMLHttpRequest()` -> vieja
+- `WebSocket` -> comunicacion en tiempo real
+
+Uso: Peticiones HTTP, chats, notificaciones en tiempo real
+
+---
+
+#### 3. APIs de Almacenamiento
+Guardar informacion en el navegador
+
+- `localStorage()`
+- `SessionStorage`
+- `IndexedDB`
+- `Cookies` -> `document.cookie`
+
+Uso: Guardar preferencias, datos de sesion, apps sin conexion, etc
+
+---
+
+#### 4. Timers
+Permiten ejecutar funciones luego de un cierto tiempo
+
+- `setTimeout()`
+- `setInterval()`
+
+Uso: Retrasos, animaciones, etc
+
+---
+
+#### 5. APIs de Dispositivos y Multimedia
+Interaccion con hardware o medios
+
+- `navigator.geolocation` -> GPS
+- `MediaDevices.getUserMedia()` -> Microfono y camara
+- `Notificacion` -> Notificaciones de sistema
+- `Battery API`, `Clipboard API`
+
+Uso: Apps moviles, camara, permisos, grabaciones, notificaciones
+
+---
+
+#### 6. APIs de interfaz grafica
+Controlan animaciones, graficos y visualizacion
+
+- `Canvas API`
+- `WebGL`
+- `Fullscreen API`
+- `Screen Orientation API`
+
+Uso: Juegos, visualizaciones, graficos dinamicos, etc
+
+
+
+---
+
+
 
 ### JavaScript V
 ```js
