@@ -1,5 +1,12 @@
 # IFTS16_2026c1_Frontend
 
+## Recursos
+- [Clase de Protocolo HTTP](https://www.youtube.com/watch?v=l6oF_RpBf64)
+
+- [Playlist conceptual de Desarrollo fullstack](https://www.youtube.com/watch?v=lC6JOQLIgp0&list=PLQxX2eiEaqbxx6Ds5bd1F6LZJo7_OnZhV)
+
+---
+
 ## JavaScript
 
 ## Cronograma posible Frontend
@@ -10,13 +17,15 @@
 
 - *20/05 / JavaScript y VI y Objetos globales + APIs Web*
 
-- 27/05 / Eventos JS VI y JavaScript VII 
+- 27/05 / Introduccion a Node.js, Protocolo HTTP y servidor con Node.js
 
-- 03/06 / JavaScript VIII
+- 03/06 / Servidor con Express API REST
+    - Explicar importacion y exportacion
+    - Chusmear `package.json`
 
-- 10/06 / A definir
+- 10/06 / Eventos JS VI y JavaScript VII 
 
-- A definir 17, 
+- 17/06 / JavaScript VIII 
 
 - Presentacion TPO1 / 24 junio
 
