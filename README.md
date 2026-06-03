@@ -17,9 +17,9 @@
 
 - *20/05 / JavaScript y VI y Objetos globales + APIs Web*
 
-- 27/05 / Introduccion a Node.js, Protocolo HTTP y servidor con Node.js
+- *27/05 / Introduccion a Node.js, Protocolo HTTP y servidor con Node.js*
 
-- 03/06 / Servidor con Express API REST
+- *03/06 / Servidor con Express API REST*
     - Explicar importacion y exportacion
     - Chusmear `package.json`
 

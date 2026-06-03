@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista productos</title>
+</head>
+<body>
+    <h1>Lista productos BBDD</h1>
+    <main>
+        <div id="contenedor-productos"></div>
+    </main>
+    
+    <script>
+        let contenedorProductos = document.getElementById("contenedor-productos");
+
+        async function mostrarProductos() {
+            const response = await fetch("http://localhost:3000/api/products");
+
+            const data = await response.json();
+
+            const productos = data.payload;
+
+            console.log(productos);
+
+            renderizarProductos(productos)
+        }
+
+        function renderizarProductos(productos) {
+            let htmlProductos = "<ul>";
+
+            productos.forEach(producto => {
+                htmlProductos += `<li>${producto.name} / $${producto.price}</li>`;
+            });
+
+            htmlProductos += "</ul>";
+
+            contenedorProductos.innerHTML = htmlProductos;
+        }
+
+        mostrarProductos();
+    </script>
+</body>
+</html>
