@@ -23,23 +23,253 @@
     - Explicar importacion y exportacion
     - Chusmear `package.json`
 
-- 10/06 / Eventos JS VI y JavaScript VII 
+- *10/06 / Eventos JS VI y JavaScript VII*
 
-- 17/06 / JavaScript VIII 
+- 17/06 / Continuar JavaScript VII y JavaScript VIII 
 
 - Presentacion TPO1 / 24 junio
 
 - Presentacion TPO2 1 julio
 
+
+---
+
+## JavaScript VII / Callbacks, High order functions, destructuring, spread operator, funciones anidadas
+
+```js
+
+```
+
+
 ---
 
 ## JavaScript VI / Manipulacion del DOM en JavaScript y eventos
+
+```js
+// Explicacion basica: El objeto global console me proporciona el metodo log
+console.log("Mensaje por consola");
+
+// Mas en detalle, log es una API Web, que es un conjunto de funciones y herramientas que nos da el navegador para interactuar con el navegador, en este caso, con la consola
+
+
+/*================================================
+    Como funciona la manipulacion del DOM?
+==================================================    
+
+JavaScript puede acceder y modificar cualquier elemento del DOM utilizando el objeto global document, con el podra
+
+    - Modificar el contenido de texto, atributos, clases, etc
+    - Añadir o elminar elementos del DOM
+    - Escuchar eventos de usuario (clicks, teclas, etc)
+
+
+==========================================    
+    Seleccion de elementos en el DOM
+==========================================    
+
+    getElementById()
+
+        - Este metodo selecciona un unico elemento por su id (si no existe devuelve null)
+        - Solo selecciona el primer elemento que coincida con el id
+*/        
+
+// Guardo en una variable el elemento HTML
+let titulo = document.getElementById("titulo");
+
+console.log(titulo); // <h1 id="titulo">Introduccion a JavaScript</h1>
+console.log(titulo.textContent); // Introduccion a JavaScript
+
+
+/*
+    querySelector()
+    querySelectorAll()
+
+        - querySelector(): Selecciona el PRIMER elemento que coincida con un selector CSS
+        - querySelectorAll(): Selecciona TODOS los elementos que coinciden con el selector CSS
+*/
+
+let primerParrafo = document.querySelector(".mensaje");
+console.log(primerParrafo.textContent); // Primer parrafo
+
+let listaParrafos = document.querySelectorAll(".mensaje");
+console.log(listaParrafos); //  NodeList -> [p.mensaje, p.mensaje]
+
+/* Opcion 1 -> Funcion declarada
+listaParrafos.forEach(function(parrafo) {
+    console.log(parrafo.textContent);
+});
+*/
+
+// Opcion 2 -> Funcion flecha
+listaParrafos.forEach(parrafo => console.log(parrafo.textContent));
+// Primer parrafo
+// Segundo parrafo
+
+
+/*========================================    
+    Modificar contenido y atributos
+==========================================    
+
+Una vez que seleccionamos un elemento, podemos modificar su contenido, atributos o estilo
+
+    - textContent: Modifica texto dentro de un elemento
+    - innerHTML: Modifica el contenido HTML dentro de un elemento con acceso a las etiquetas
+    - setAttribute: Modifica los atributos de un elemento
+    - style: Permite cambiar el estilo CSS en linea de un elemento
+*/
+
+let miParrafo = document.getElementById("miParrafo");
+
+// Cambio el texto del elemento #miParrafo
+miParrafo.textContent = "Nuevo texto desde JavaScript"
+
+// Inyectamos HTML
+miParrafo.innerHTML = "<strong>Nuevo texto en negrita!</strong>";
+
+
+let boton = document.getElementById("boton");
+
+// Cambiamos el atributo id
+boton.setAttribute("id", "nuevoId");
+
+// Cambiamos el estilo del boton
+boton.style.backgroundColor = "#00FF41";
+boton.style.padding = "10px";
+boton.style.border = "2px solid";
+boton.style.borderRadius = "5px";
+
+
+/*========================================    
+        Eventos en JavaScript
+==========================================    
+
+Los eventos en JavaScript permiten a los desarrolladores detectar interacciones del usuario con la pagina web, como hacer click en un boton, mover el mouse, escribir en un campo de texto, etc. Eventos que son clave para que una pagina web sea interactiva
+
+Que es un evento?
+
+    Un evento es una señal que se envia cuando ocurre una interaccion o cambio en el documento, como un click o una pulsacion de tecla.
+
+    JavaScript permite ESCUCHAR estos eventos y ejecutar funciones especificas cuando ocurren
+
+
+Tipos comunes de eventos
+
+    - Eventos de mouse: click, dblclick, mouseover, mouseout, mousemove
+    - Eventos de teclado: keydown, keyup
+    - Eventos de formulario: submit
+    - Eventos de ventan: resize, scroll, load, unload
+*/
+
+boton.addEventListener("click", () => {
+    console.log("Hiciste click en el boton");
+});
+
+let inputTest = document.getElementById("inputTest");
+
+inputTest.addEventListener("keydown", (event) => {
+    console.log("Tecla presionada: ", event.key);
+    console.log("Codigo fisico: ", event.code);
+});
+
+let miFormulario = document.getElementById("miFormulario");
+miFormulario.addEventListener("submit", event => {
+    event.preventDefault(); // Con el metodo preventDefault del objeto event, evitamos el envio por defecto de la informacion en el formulario
+
+    console.log("Formulario no enviado! Ahora puedo realizar operaciones con JavaScript antes de enviar datos")
+});
+
+
+/*===========================
+     Propagacion de eventos
+=============================
+
+Cuando ocurre un evento, este se propaga a traves del DOM en dos fases
+
+    - Fase de captura (de arriba hacia abajo)
+    - Fase de burbuja (de abajo hacia arriba)
+
+Podemos evitar la propagacion de un evento usando el metodo event.stopPropagation
+
+    <div id="padre">
+        <button id="hijo">Boton</button>
+    </div>
+*/
+
+let padre = document.getElementById("padre");
+let hijo = document.getElementById("hijo");
+
+// Escuchamos el click en el div padre (este se propaga al hijo)
+padre.addEventListener("click", () => console.log("Se hizo click en el div padre"));
+
+// Escuchamos el click en el div hijo (este detona el evento del padre)
+hijo.addEventListener("click", (event) => {
+    event.stopPropagation(); // Detenemos la propagacion de eventos
+    console.log("Se hizo click en el div hijo");
+});
+
+
+/*==========================================================================
+    Consumimos info de una API REST y la renderizamos con innerHTML
+============================================================================
+
+Consumiremos la API Rest de prueba para obtener usuarios
+    https://jsonplaceholder.typicode.com/users
+*/
+
+const contenedorInfo = document.getElementById("contenedorInfo");
+
+async function obtenerUsuarios() {
+    // Hacemos una peticion HTTP a esta API Rest y esperamos a que nos devuelva la response
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+
+    // Ya obtenida la response, esperamos a que JS transforme el JSON en objetos JS
+    const data = await response.json();
+
+    console.table(data); // Obtengo los recursos que solicite en formato array de objetos
+
+    // Con este array de objetos a disposicion paso a recorrerlo y a imprimir en la pantalla
+    let listaUsuarios = "<ul>";
+
+    data.forEach(user => {
+        console.log(user.email);
+
+        listaUsuarios += `
+        <li>
+            <strong>Email:</strong> ${user.email} / 
+            <strong>Telefono:</strong> ${user.phone}
+        </li>`;
+    });
+
+    // Con esto terminamos de armar el choclo HTML para renderizarlo en la pagina (recordemos AJAX)
+    listaUsuarios += "</ul>";
+    console.log(listaUsuarios);
+
+    contenedorInfo.innerHTML = listaUsuarios;
+
+}
+
+obtenerUsuarios();
+```
+
+
+### [Fundamentos de las aplicaciones web](https://fullstackopen.com/es/part0/fundamentos_de_las_aplicaciones_web)
+
+### Que es AJAX en JavaScript?
+**AJAX** (JavaScript asíncrono y XML) es una técnica de desarrollo web, no un lenguaje ni una API única, que permite a las aplicaciones actualizar partes específicas de una página sin necesidad de recargarla por completo. Se basa en la combinación de **JavaScript** para la lógica, el **DOM** para la manipulación del contenido, y la API **XMLHttpRequest** (o la más moderna **Fetch API**) para realizar comunicaciones asíncronas con el servidor en segundo plano.
+
+Esta asincronía es clave porque permite que el navegador no se bloquee mientras espera una respuesta, mejorando significativamente la **interactividad, velocidad y usabilidad** de la experiencia del usuario. Aunque el acrónimo incluye "XML", en la práctica actual se utiliza frecuentemente **JSON** como formato de intercambio de datos debido a su simplicidad y eficiencia con JavaScript.
+
+Los casos de uso más comunes incluyen:
+*   **Autocompletado** en tiempo real en barras de búsqueda.
+*   **Validación de formularios** sin enviar la página.
+*   **Carga de contenido dinámico** en redes sociales o chats.
+*   **Actualización de datos** en paneles de control o sistemas de votación.
 
 ### Que es el [DOM](https://www.w3schools.com/js/js_htmldom.asp)?
 El DOM (Document Object Model) o  Modelo de Objetos del documento es una interfaz de programacion que representa un documento HTML como una estructura jerarquica de objetos, conocida como arbol DOM.
 Esta estructura permite a los programas acceder, modificar, añadir o eliminar elementos, contenido, estilos y atributos del documento de forma dinamica.
 
-Cada elemento HTML se convieret en un nodo dentro de ese arbol y todos los elementos estan relacionados entre si mediante padres, hijos y hermanos creando uan representacion en memoria de=l documento que el navegador puede manipular.
+Cada elemento HTML se convierte en un nodo dentro de ese arbol y todos los elementos estan relacionados entre si mediante padres, hijos y hermanos creando uan representacion en memoria de=l documento que el navegador puede manipular.
 Este modelo fue estandarizado por W3C para resolver la incompatibilidad de navegadores a finales de los 90 y hoy es parte fundamental del estandar HTML5. Hoy es una API independiente de=l lenguaje que se usa en multiples lenguajes de programacion.
 
 **Em resumen, el DOM es la base que permite a JavaScript interactuar con el contenido de una pagina web, transformando el codigo HTML en una estructura de objetos manipulable.**

@@ -16,6 +16,20 @@
             color: white;
             font-family: monospace;
         }
+
+        #padre {
+            border: 2px solid rgb(0, 255, 65);
+            padding: 25px;
+            border-radius: 5px;
+            background-color: lavender;
+        }
+
+        #hijo {
+            background-color: rgb(0, 255, 65);
+            padding: 10px;
+            border: 2px solid;
+            border-radius: 5px;
+        }
     </style>
 
 <!-- Donde cargamos nuestro script?
@@ -35,5 +49,25 @@ Opcion 2: en <head> pero con el atributo defer (demora la ejecucion de JS hasta 
     <p id="miParrafo">Texto original</p>
 
     <button id="boton">Soy un boton!</button>
+
+    <hr>
+
+    <form id="miFormulario">
+        <label for="inputTest">Texto</label>
+        <input type="text" name="test" id="inputTest">
+
+        <input type="submit" value="Enviar">
+    </form>
+
+    <hr>
+
+    <h4>Comprendiendo la propagacion de eventos</h4>
+    <div id="padre">
+        <button id="hijo">Boton</button>
+    </div>
+
+    <hr>
+
+    <div id="contenedorInfo"></div>
 </body>
 </html>
