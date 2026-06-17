@@ -1,149 +1,43 @@
-/*==============================
-    Callbacks en JavaScript
-================================
+/*====================
+    JSON
+======================
 
-Los callbacks son funciones que se pasan como argumentos a otras funciones y se ejecutan despues de que ocurra algun evento o se complete alguna operacion
-*/
+JSON o JavaScript Object Notation es basicamente un formato ligero de texto plano, provee una sintaxis a ese texto plano que nos permite organizar la informacion. Es el estandar para la comunicacion entre aplicaciones en la web.
 
-function saludar(nombre, callback) {
-    console.log(`Hola ${nombre}`);
+JSON es un FORMATO de texto que representa datos estructurados basados en dos estructuras fundamentales
 
-    // Al terminar de consologuear, se ejecuta la funcion que pase por parametro
-    callback();
-}
+    1. Coleccion de pares nombre/valor (equivalente a un objeto en JavaScript)
+    2. Lista ordenada de valores (equivalnente a un array en JavaScript)
 
-function despedirse() {
-    console.log("Chau! nos vemos");
-}
+Caracteristicas principales
+    - Es textual y legible por humanos
+    - Es ligero (ocupa poco espacio)
+    - Es facil de parsear y generar
+        JSON.parse(datosUsuarios) -> Convertimos un JSON a objetps JavaScript
+        JSON.stringify(datosUsuarios) -> Convertimos un array de objetos a JSON
 
-// Forma 1: Declaramos la funcion adentro, como segundo parametro
-saludar("Edgar", () => {
-    console.log("Chauchis!")
-})
-/*
-    Hola Edgar
-    Chauchis!
-*/
-
-// Forma 2: Invocamos la funcion como segundo parametro
-saludar("Marcela", despedirse);
-/*
-    Hola Marcela
-    Chau! nos vemos
 */
 
 
-/*============================
-    Caracteristicas de JS
-==============================
+/*=============================================================
+    Que herramientas usamos para manejar asincronia con JS?
+===============================================================
 
-//////////////////////////////////
-// 1. Funciones de Primera Clase
+1. Callbacks: Funcion que se pasa como argumento para ejecutarse despues de completar una operacion
 
-En JS las funciones son "ciudadanos de primer clase", esto significa que pueden ser:
+2. Promises: Objetos que representan un valor que puede estar disponible ahora, en el futuro o nunca. Sus estados son
 
-    - Asignadas a variables
-    - Pasadas como argumentos
-    - Retornadas desde otras funciones
+    - pending (pendiente)
+    - fulfilled (completado)
+    - rejected (rechazado)
 
+    fetch("https://api.ejemplo.com/datos")
+        .then(respuesta => respuesta.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error))
 
-//////////////////////////////////
-// 2. Sincronia y Asincronia
-
-Ejemplo de Callback Sincrono
-function procesoPesado(callback) {
-    console.log("Iniciando proceso pesado...");
-    
-    // Simulamos un procesamiento que tarde unos segundos
-    for(let i = 0; i < 5000; i++) {
-        console.log("<- Numero de iteraciones");
-    }
-    
-    callback();
-}
-
-procesoPesado(() => {
-    console.log("Proceso completado");
-});
-
-console.log("Esto se ejecuta despues del callback");
-*/
-
-// Ejemplo de Callback Asincrono
-function procesoAsincrono(callback) {
-    console.log("Iniciando proceso asincrono...");
-
-    setTimeout(() => {
-        callback();
-    }, 5000);
-}
-
-procesoAsincrono(() => {
-    console.log("Proceso asincrono completado");
-});
-
-console.log("Este mensaje se ejecutara inmediatamente");
-
-
-/*==============================
-    Casos de uso de callbacks
-================================
-
-// 1. Temporizadores 
-
-// setTimeout
-setTimeout(function() {
-    console.log("Esto se ejecuta después de 3 segundos");
-}, 3000);
-
-
-// 2. Eventos del DOM
-
-boton.addEventListener("click", () => {
-    console.log("Hiciste click en el boton");
-});
-
-
-// 3. Operaciones con Arrays
-
-const numeros = [1, 2, 3, 4, 5];
-
-// forEach
-numeros.forEach(function(numero, indice) {
-    console.log(`Índice: ${indice}, Valor: ${numero}`);
-});
-
-// map
-const duplicados = numeros.map((numero) => numero * 2);
-
-
-
-// 4. Peticiones HTTP
-
-
-// 5. Lectura de Archivos (Node.js)
-
-
-==============================================
-    Ventajas y Desventajas de los callbacks
-==============================================
-
-Ventajas
-    - Simplicidad: Facil de entender para operaciones simples
-    - Universalidad: Compatibles con todos los navegadores
-    - Flexibilidad: Permiten crear codigo reutilizable
-
-Desventajas
-    - Callback hell: Anidamiento excesivo de callbacks que dificultan la lectura
-    - Manejo de errores: Complicado con callbacks anidados
-    - Flujo de control: Dificil de seguir con operaciones complejas
-
-
-Ejemplo de callback hell:
-    https://dev.to/jerrycode06/callback-hell-and-how-to-rescue-it-ggj
-
-La solucion a los problemas de los callbacks son :
-
-    - Promesas
-    - Async/Await
+    1. fetch hace una peticion HTTP que
+    2. Devuelve una promesa que
+        - Se resuelve con una Response (respuesta del servidor)
+        - Se rechaza si hay un error de red
 */

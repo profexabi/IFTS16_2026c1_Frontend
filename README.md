@@ -25,11 +25,66 @@
 
 - *10/06 / Eventos JS VI y JavaScript VII*
 
-- 17/06 / Continuar JavaScript VII y JavaScript VIII 
+- *17/06 / Continuar JavaScript VII y JavaScript VIII*
 
-- Presentacion TPO1 / 24 junio
+- **VIRTUAL -> Presentacion TPO1 / 24 junio**
 
-- Presentacion TPO2 1 julio
+- **PRESENCIAL -> Presentacion TPO2 / 1 julio**
+
+
+---
+
+## JavaScript VIII / JSON, asincronia, promesas y fetch, async/await y try...catch
+
+### JSON
+JSON o JavaScript Object Notation es basicamente un formato ligero de texto plano, provee una sintaxis a ese texto plano que nos permite organizar la informacion. Es el estandar para la comunicacion entre aplicaciones en la web.
+
+JSON es un FORMATO de texto que representa datos estructurados basados en dos estructuras fundamentales
+
+    1. Coleccion de pares nombre/valor (equivalente a un objeto en JavaScript)
+    2. Lista ordenada de valores (equivalnente a un array en JavaScript)
+
+Caracteristicas principales
+    - Es textual y legible por humanos
+    - Es ligero (ocupa poco espacio)
+    - Es facil de parsear y generar
+        JSON.parse(datosUsuarios) -> Convertimos un JSON a objetps JavaScript
+        JSON.stringify(datosUsuarios) -> Convertimos un array de objetos a JSON
+
+```json
+{
+    "nombre": "Juan Pérez",
+    "edad": 30,
+    "esEstudiante": false,
+    "direccion": {
+    "calle": "Av. Principal 123",
+    "ciudad": "Ciudad de México"
+    },
+    "telefonos": ["555-1234", "555-5678"],
+    "nulo": null
+}
+```
+
+#### Caracteristicas principales
+- Los datos estan en pares **nombre/valor**
+- Los datos estan separados por comas
+- Las llaves representan objetos `{}`
+- Los corchetes representan arrays `[]`
+- Las comillas dobles `""` son obligatorias para nombres de propiedades y strings
+
+JSON soporta strings, numbers, booleans, null, objects y arrays
+
+#### Usos comunes de JSON
+1. Comunicacion Cliente Servidor -> JSON es el formato estandar para API REST
+2. Almacenamiento local -> Guardamos datos en el navegador `localStorage`
+3. Configuraciones -> Muchas herramientas usan JSON para configuraciones como `package.json` en Node.js
+
+
+#### Buenas practicas
+1. Validar JSON: Antes de parsear, especialmente si viene de fuentes externas
+2. Manejar errores: Siempre usar try...catch
+3. No usar para datos sensibles: JSON no es un formato seguro por si mismo
+4. Optimizar para tamaño: Minimizar el JSON en produccion
 
 
 ---
@@ -37,7 +92,267 @@
 ## JavaScript VII / Callbacks, High order functions, destructuring, spread operator, funciones anidadas
 
 ```js
+/*==============================
+    Callbacks en JavaScript
+================================
 
+Los callbacks son funciones que se pasan como argumentos a otras funciones y se ejecutan despues de que ocurra algun evento o se complete alguna operacion
+*/
+
+function saludar(nombre, callback) {
+    console.log(`Hola ${nombre}`);
+
+    // Al terminar de consologuear, se ejecuta la funcion que pase por parametro
+    callback();
+}
+
+function despedirse() {
+    console.log("Chau! nos vemos");
+}
+
+// Forma 1: Declaramos la funcion adentro, como segundo parametro
+saludar("Edgar", () => {
+    console.log("Chauchis!")
+})
+/*
+    Hola Edgar
+    Chauchis!
+*/
+
+// Forma 2: Invocamos la funcion como segundo parametro
+saludar("Marcela", despedirse);
+/*
+    Hola Marcela
+    Chau! nos vemos
+*/
+
+
+/*============================
+    Caracteristicas de JS
+==============================
+
+//////////////////////////////////
+// 1. Funciones de Primera Clase
+
+En JS las funciones son "ciudadanos de primer clase", esto significa que pueden ser:
+
+    - Asignadas a variables
+    - Pasadas como argumentos
+    - Retornadas desde otras funciones
+
+
+//////////////////////////////////
+// 2. Sincronia y Asincronia
+
+Ejemplo de Callback Sincrono
+function procesoPesado(callback) {
+    console.log("Iniciando proceso pesado...");
+    
+    // Simulamos un procesamiento que tarde unos segundos
+    for(let i = 0; i < 5000; i++) {
+        console.log("<- Numero de iteraciones");
+    }
+    
+    callback();
+}
+
+procesoPesado(() => {
+    console.log("Proceso completado");
+});
+
+console.log("Esto se ejecuta despues del callback");
+*/
+
+// Ejemplo de Callback Asincrono
+function procesoAsincrono(callback) {
+    console.log("Iniciando proceso asincrono...");
+
+    setTimeout(() => {
+        callback();
+    }, 5000);
+}
+
+procesoAsincrono(() => {
+    console.log("Proceso asincrono completado");
+});
+
+console.log("Este mensaje se ejecutara inmediatamente");
+
+
+/*==============================
+    Casos de uso de callbacks
+================================
+
+// 1. Temporizadores 
+
+// setTimeout
+setTimeout(function() {
+    console.log("Esto se ejecuta después de 3 segundos");
+}, 3000);
+
+
+// 2. Eventos del DOM
+
+boton.addEventListener("click", () => {
+    console.log("Hiciste click en el boton");
+});
+
+
+// 3. Operaciones con Arrays
+
+const numeros = [1, 2, 3, 4, 5];
+
+// forEach
+numeros.forEach(function(numero, indice) {
+    console.log(`Índice: ${indice}, Valor: ${numero}`);
+});
+
+// map
+const duplicados = numeros.map((numero) => numero * 2);
+
+
+
+// 4. Peticiones HTTP
+
+
+// 5. Lectura de Archivos (Node.js)
+
+
+==============================================
+    Ventajas y Desventajas de los callbacks
+==============================================
+
+Ventajas
+    - Simplicidad: Facil de entender para operaciones simples
+    - Universalidad: Compatibles con todos los navegadores
+    - Flexibilidad: Permiten crear codigo reutilizable
+
+Desventajas
+    - Callback hell: Anidamiento excesivo de callbacks que dificultan la lectura
+    - Manejo de errores: Complicado con callbacks anidados
+    - Flujo de control: Dificil de seguir con operaciones complejas
+
+
+Ejemplo de callback hell:
+    https://dev.to/jerrycode06/callback-hell-and-how-to-rescue-it-ggj
+
+La solucion a los problemas de los callbacks son :
+
+    - Promesas
+    - Async/Await
+*/
+
+/*============================
+    Destructuring
+==============================
+
+Destructuring es una sintaxis que permite extraer valores de arrays o propiedaes de objetos y asignarlos a variables de forma simple
+Es una forma de "descomponer" estructuras de datos como arrays y objetos en variables individuales sin necesidad de acceder manualmente a cada elemento o propiedad x
+
+El destructuring nos permite
+
+    - Mejorar la legibilidad del codigo
+    - Facilita el acceso rapido a datos de estructuras complejas
+    - Reduce la verbosidad (menos lineas para obtener lo mismo)
+*/
+/////////////////////
+// ARRAYS / Sin destructuring
+const numerosUno = [1, 2, 3];
+const primeroUno = numerosUno[0];
+const segundoUno = numerosUno[1];
+console.log(primeroUno, segundoUno); // 1 2
+
+/////////////////////
+// ARRAYS / Con destructuring
+const numeros = [1, 2, 3];
+const [uno, dos] = numeros;
+console.log(uno, dos); // 1 2
+
+// Con valores omitidos!
+const [primero, , tercero] = [10, 20, 30];
+console.log(primero, tercero); // 10 30
+
+// Usando rest operator "..." con destructuring 
+const [a, ...resto] = [1, 2, 3, 4];
+console.log(a); // 1
+console.log(resto); // [2, 3, 4]
+
+
+/////////////////////
+// OBJETOS / Sin destructuring
+const persona = { nombre: "Cid", edad: 30 };
+const nombrePersona = persona.nombre;
+const edadPersona = persona.edad;
+
+/////////////////////
+// OBJETOS / Con destructuring
+const { nombre, edad } = persona;
+console.log(`Me llamo ${nombre} y tengo ${edad} años`); // Me llamo Cid y tengo 30 años
+
+
+/*============================
+    Spread Operator
+==============================
+
+El spread operator o operador de propagacion "..." es una sintaxis introducida en ES6 (ECMAScript 2015) que permite descomponer elementos iterables como arrays, strings y objetos en elementos idnivudales
+
+El spread opreator trabaja a nivel de valors individuales, extrayendo cada elemento de un iterable y colocandolo en el contexto donde se usa, cuando el interprete de JS detecta ...iterable:
+
+    1. Convierte el iterable en una sencuencia de valores individuales
+    2. Propaga (spread) esos valores en el nuevo contexto (array, objeto, llamada a funcion)
+    3. NO modifica el original
+
+- Arrays:   [...array1, ...array2]      ->  Concatena arrays
+- Objetos:  {...obj1, ...obj2}          ->  Combina objetos
+- Llamadas a funciones: func(...args)   -> Pasa argumentos
+- Strings: [..."Hola"]                  -> Convierte en array de caracteres
+*/
+
+// Copia superficial de array
+const arrayOriginal = [1, 2, 3];
+const copia = [...arrayOriginal];
+console.log(copia); // [1, 2, 3]
+
+// Concatenacion de arrays
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+const combinado = [...arr1, ...arr2];
+console.log(combinado); // [1, 2, 3, 4] -> mas eficiente que concat()
+
+// Uso con otros iterables
+const str = "Hola";
+const caracteres = [...str];
+console.log(caracteres); // ['H', 'o', 'l', 'a'] -> sustituye a split("")
+
+
+/*=============================
+    Funciones anidadas
+===============================
+
+En JS una funcion anidada es simplemente una funcion definida dentro de otra funcion.
+Es una funcion que vive en el ambito lexico (scope) de una funcion externa. Una funcion anidada es una funcion que:
+
+    - Se declara dentro de otra fnucion
+    - Tiene acceso a todas las variables y parametros de su fnucion externa
+    - Puede ser utilizada para organizar mejor el codigo, modularizar logica o crear closures
+*/
+
+// Organizando el codigo
+function procesarTexto(texto) {
+
+    function limpiar(t) {
+        return t.trim().toLowerCase();
+    }
+
+    function contarPalabras(t) {
+        return t.split(/\s+/).length;
+    }
+
+    const limpio = limpiar(texto);
+    return contarPalabras(limpio);
+}
+
+console.log(procesarTexto("Tres tristes tigres comieron trigo en un trigal")); // 8
 ```
 
 
@@ -219,32 +534,38 @@ Consumiremos la API Rest de prueba para obtener usuarios
 const contenedorInfo = document.getElementById("contenedorInfo");
 
 async function obtenerUsuarios() {
-    // Hacemos una peticion HTTP a esta API Rest y esperamos a que nos devuelva la response
-    const response = await fetch("https://jsonplaceholder.typicode.com/users");
 
-    // Ya obtenida la response, esperamos a que JS transforme el JSON en objetos JS
-    const data = await response.json();
+    try {
+        // Hacemos una peticion HTTP a esta API Rest y esperamos a que nos devuelva la response
+        const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    
+        // Ya obtenida la response, esperamos a que JS transforme el JSON en objetos JS
+        const data = await response.json();
+    
+        console.table(data); // Obtengo los recursos que solicite en formato array de objetos
+    
+        // Con este array de objetos a disposicion paso a recorrerlo y a imprimir en la pantalla
+        let listaUsuarios = "<ul>";
+    
+        data.forEach(user => {
+            console.log(user.email);
+    
+            listaUsuarios += `
+            <li>
+                <strong>Email:</strong> ${user.email} / 
+                <strong>Telefono:</strong> ${user.phone}
+            </li>`;
+        });
+    
+        // Con esto terminamos de armar el choclo HTML para renderizarlo en la pagina (recordemos AJAX)
+        listaUsuarios += "</ul>";
+        console.log(listaUsuarios);
+    
+        contenedorInfo.innerHTML = listaUsuarios;
 
-    console.table(data); // Obtengo los recursos que solicite en formato array de objetos
-
-    // Con este array de objetos a disposicion paso a recorrerlo y a imprimir en la pantalla
-    let listaUsuarios = "<ul>";
-
-    data.forEach(user => {
-        console.log(user.email);
-
-        listaUsuarios += `
-        <li>
-            <strong>Email:</strong> ${user.email} / 
-            <strong>Telefono:</strong> ${user.phone}
-        </li>`;
-    });
-
-    // Con esto terminamos de armar el choclo HTML para renderizarlo en la pagina (recordemos AJAX)
-    listaUsuarios += "</ul>";
-    console.log(listaUsuarios);
-
-    contenedorInfo.innerHTML = listaUsuarios;
+    } catch (error) {
+        console.error("Error obteniendo los datos: ", error);
+    }
 
 }
 
